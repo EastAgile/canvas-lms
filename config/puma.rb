@@ -1,13 +1,17 @@
-threads 1, 6
 environment 'production'
+workers 2
+threads 1, 2
 daemonize true
 
-app_dir = File.expand_path('../..', __FILE__)
-shared_dir = "#{app_dir}/tmp"
+app_dir = "/home/ec2-user/ea-canvas-lms"
+shared_dir = "#{app_dir}/shared"
 
-bind "unix://#{shared_dir}/sockets/puma.sock"
+bind "unix://#{shared_dir}/tmp/sockets/puma.sock"
+pidfile "#{shared_dir}/tmp/pids/puma.pid"
+state_path "#{shared_dir}/tmp/pids/puma.state"
+directory "#{app_dir}/current"
+
 stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
-pidfile "#{shared_dir}/pids/puma.pid"
-state_path "#{shared_dir}/pids/puma.state"
 
-activate_control_app
+activate_control_app "unix://#{shared_dir}/tmp/sockets/pumactl.sock"
+prune_bundler
