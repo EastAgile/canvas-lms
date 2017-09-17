@@ -28,7 +28,6 @@ app/stylesheets/brandable_css_brands
 /db/*.sqlite*
 /db/*sql
 /exports/
-Gemfile.lock
 Gemfile.lock.51
 /log/
 mkmf.log
@@ -60,3 +59,5 @@ npm-debug.log
 
 # user docker compose overrides
 docker-compose.local.*
+
+deploy.pem
